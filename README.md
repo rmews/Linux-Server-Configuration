@@ -2,6 +2,7 @@
 
 ## Server Info
 Address: http://18.218.75.238/
+
 SSH Port: 2200
 
 ## Configuration Steps
@@ -103,7 +104,8 @@ Change the line that says Port 22 to 2200, then:
 3. Move into newly created folder and intialize Git `sudo git init`
 4. Clone repo `sudo git clone https://github.com/rmews/flask-catalog-app.git` This will create a new directory in FlaskApp called flask-catalog-app
 5. Edit the config file to point to Flask site `sudo nano /etc/apache2/sites-available/FlaskApp.conf`
-```<VirtualHost *:80>
+```
+<VirtualHost *:80>
     ServerName IP Address
     ServerAdmin admin@mywebsite.com 
     WSGIScriptAlias / /var/www/FlaskApp/catalog.wsgi
@@ -118,9 +120,11 @@ Change the line that says Port 22 to 2200, then:
     ErrorLog ${APACHE_LOG_DIR}/error.log
     LogLevel warn
     CustomLog ${APACHE_LOG_DIR}/access.log combined
-</VirtualHost>```
+</VirtualHost>
+```
 6. Create the WSGI file to tell Apache how to run Flask `sudo nano /var/www/FlaskApp/catalog.wsgi`
-```#! /usr/bin/python
+```
+#! /usr/bin/python
 import sys
 import logging
 logging.basicConfig(stream=sys.stderr)
@@ -128,12 +132,15 @@ sys.path.insert(0,"/var/www/FlaskApp/flask-catalog-app/")
 
 # app points to the app.py file
 from app import app as application
-application.secret_key = "somesecretsessionkey"```
+application.secret_key = "somesecretsessionkey"
+```
 7. Restart services 
-```sudo apachectl restart
+```
+sudo apachectl restart
 sudo a2ensite flask-catalog-app
 sudo service apache2 restart
-/etc/init.d/apache2 reload ```
+/etc/init.d/apache2 reload
+```
 
 ### Step 15: Install PostgreSQL
 1. Install PostgreSQL `sudo apt-get install postgresql postgresql-contrib`
@@ -141,17 +148,18 @@ sudo service apache2 restart
 Check the file to ensure no remote connections are not enabled. They should be disabled by default. 
 3. Switch to postgres user to manage database `sudo su - postgres`
 4. Create new database user with password
-```psql
-CREATE ROLE new-user WITH LOGIN PASSWORD 'password';```
+`psql`
+`CREATE ROLE new-user WITH LOGIN PASSWORD 'password';`
 5. Create new databse and set owner `CREATE DATABASE database-name WITH OWNER user;`
 6. Exit PostgreSQL and restart it 
-```\q
-exit
-sudo service postgresql restart```
+`\q`
+`exit`
+`sudo service postgresql restart`
 
 ### Step 15: Install application dependencies 
 These are dependencies of the Flask application. If these are not installed, then you will have errors in the error log.
-```sudo apt-get install python-pip
+```
+sudo apt-get install python-pip
 sudo pip install virtualenv
 sudo pip install httplib2
 sudo pip install requests
@@ -163,9 +171,11 @@ sudo pip install oauth2client
 ### Step 16: Restrict access to git
 1. SSH into server and move into the .git directory `cd /var/www/FlaskApp/Catalog/flask-catalog-app/.git`
 2. Create and add the following to htaccess file 
-```sudo nano .htaccess
+```
+sudo nano .htaccess
 Order allow,deny
-Deny from all```
+Deny from all
+```
 
 ## Additional Resources
 These are resources used to help setup and configure various aspects of the server. 
