@@ -67,6 +67,7 @@ Change the line that says Port 22 to 2200, then:
 `sudo service ssh restart`
 6. Enable ufw
 `sudo ufw enable`
+7. Configure Firewall under the Networking tab in your AWS instance by removing SSH and adding a custom application with port 2200 and adding another custom applicaiton with port 123
 
 ### Step 9: Add new user & give sudo permission
 1. Add new user: `sudo adduser new-user-name`
