@@ -179,6 +179,7 @@ Deny from all
 
 ## Additional Resources
 These are resources used to help setup and configure various aspects of the server. 
+
 [Configuring WSGI](http://amunategui.github.io/idea-to-pitch/)
 
 [Changing the Server Time](https://askubuntu.com/questions/138423/how-do-i-change-my-timezone-to-utc-gmt)
